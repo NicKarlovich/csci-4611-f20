@@ -34,12 +34,12 @@ It is extremely helpful to outline the steps you took in your Piazza post or in 
 
 #### 2) Clone your repository for this class.  *Put it inside a directory path on your computer that does not include any spaces!*   On Windows, we recommend using Git-bash rather than the built-in Windows Command Prompt; Git-bash gets installed on Windows when you install Git.  On OSX, you can use Terminal.  On Linux, use your favorite shell.   Then, type the following command.
 
-	git clone https://github.umn.edu/umn-csci-4611-s20/repo-[x500].git
+	git clone https://github.umn.edu/umn-csci-4611-f20/repo-[x500].git
 
 #### 3) Add remote server for our support-code
 
 	cd repo-[x500]
-	git remote add upstream https://github.umn.edu/umn-csci-4611-s20/shared-upstream.git
+	git remote add upstream https://github.umn.edu/umn-csci-4611-f20/shared-upstream.git
 
 #### 4) Pull from shared-upstream into your branch
 
