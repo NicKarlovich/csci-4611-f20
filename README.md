@@ -1,6 +1,6 @@
 # Getting Started with MinGfx and CMake
 
-If you encounter any issues, please begin by checking [Slack](csci4611f2020.slack.com) for help and checking the posts under the `mingfx-setup` channel. If that does not help, leave a post of your own or attend office hours. If you are really stuck send an email to: [csci4611@umn.edu](mailto:csci4611@umn.edu).  
+If you encounter any issues, please begin by checking [Slack](https://csci4611f2020.slack.com) for help and checking the posts under the `mingfx-setup` channel. If that does not help, leave a post of your own or attend office hours. If you are really stuck send an email to: [csci4611@umn.edu](mailto:csci4611@umn.edu).  
 
 It is extremely helpful to outline the steps you took in your Slack post or in your email. This helps us reproduce the problem and more quickly find a solution.
 
