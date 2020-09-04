@@ -287,16 +287,16 @@ public:
     int num_vertices() const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-    Point3 vertex(int vertex_id) const;
+	const Point3 vertexReadOnly(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-    Vector3 normal(int vertex_id) const;
+	const Vector3 normalReadOnly(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-    Color color(int vertex_id) const;
+	const Color colorReadOnly(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-    Point2 tex_coords(int texture_unit, int vertex_id) const;
+	const Point2 tex_coordsReadOnly(int texture_unit, int vertex_id) const;
     
     
     // Access to triangles
@@ -306,7 +306,7 @@ public:
     
     /// Returns a 3 element array of the indices to the vertices that make up
     /// the specified triangle.
-    std::vector<unsigned int> triangle_vertices(int triangle_id) const;
+	std::vector<unsigned int> triangle_verticesReadOnly(int triangle_id) const;
     
    
 private:

@@ -576,24 +576,12 @@ void Mesh::LoadFromOBJ(const std::string &filename) {
 
 
 
-Point3 Mesh::vertex(int i) const {
-    return Point3(verts_[3*i], verts_[3*i+1], verts_[3*i+2]);
-}
+const Point3 Mesh::vertexReadOnly(int i) const {}
+const Vector3 Mesh::normalReadOnly(int i) const {}
+const Color Mesh::colorReadOnly(int i) const {} 
+const Point2 Mesh::tex_coordsReadOnly(int textureUnit, int i) const {}
 
-Vector3 Mesh::normal(int i) const {
-    return Vector3(norms_[3*i], norms_[3*i+1], norms_[3*i+2]);
-}
-
-Color Mesh::color(int i) const {
-    return Color(colors_[4*i], colors_[4*i+1], colors_[4*i+2], colors_[4*i+3]);
-    
-}
-
-Point2 Mesh::tex_coords(int textureUnit, int i) const {
-    return Point2(tex_coords_[textureUnit][2*i], tex_coords_[textureUnit][2*i+1]);
-}
-
-std::vector<unsigned int> Mesh::triangle_vertices(int triangle_id) const {
+std::vector<unsigned int> Mesh::triangle_verticesReadOnly(int triangle_id) const {
     std::vector<unsigned int> tri;
     int i = 3*triangle_id;
     if (indices_.size()) {
