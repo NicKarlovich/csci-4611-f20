@@ -1,8 +1,8 @@
 # Getting Started with MinGfx and CMake
 
-If you encounter any issues, please begin by checking [Piazza](https://piazza.com/class/k5o7m9d4vq710p) for help and checking the posts under the `mingfx-setup` folder. If that does not help, leave a post of your own or attend office hours. If you are really stuck send an email: [csci4611@umn.edu](mailto:csci4611@umn.edu).  
+If you encounter any issues, please begin by checking [Slack](csci4611f2020.slack.com) for help and checking the posts under the `mingfx-setup` channel. If that does not help, leave a post of your own or attend office hours. If you are really stuck send an email to: [csci4611@umn.edu](mailto:csci4611@umn.edu).  
 
-It is extremely helpful to outline the steps you took in your Piazza post or in your email. This helps us reproduce the problem and more quickly find a solution.
+It is extremely helpful to outline the steps you took in your Slack post or in your email. This helps us reproduce the problem and more quickly find a solution.
 
 ## Initial setup for a new computer
 
@@ -57,7 +57,7 @@ After the ```git commit``` command, you may get the warning "Your branch is base
 
 #### 6) Configure
 
-Please see the [course slides on building with CMake](https://canvas.umn.edu/courses/158203/files/10944841?module_item_id=3340126) but remember that you can only start ```cmake-gui``` from the command line if you installed the CMake Command Line Tools in Step 1.  If not, then just run CMake from the Windows menu or Applications folder on Mac.
+Please see the [course slides on building with CMake](https://canvas.umn.edu/courses/194174/files/14414601) but remember that you can only start ```cmake-gui``` from the command line if you installed the CMake Command Line Tools in Step 1.  If not, then just run CMake from the Windows menu or Applications folder on Mac.
 
 For Configuring:
 * Remember the very important step noted in the slides for changing your CMAKE_INSTALL_PREFIX to point to the root of your repo -- this is critical for installing MinGfx to the correct place.
