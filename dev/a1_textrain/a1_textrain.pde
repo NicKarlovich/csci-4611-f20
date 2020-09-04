@@ -1,6 +1,6 @@
-/**
-    CSci-4611 Assignment #1 Text Rain
-**/
+/*
+ * CSci-4611 Assignment #1 Text Rain
+ */
 
 
 import processing.video.*;
@@ -20,6 +20,7 @@ void setup() {
 
 
 void draw() {
+  
   // When the program first starts, draw a menu of different options for which camera to use for input
   // The input method is selected by pressing a key 0-9 on the keyboard
   if (!inputMethodSelected) {
@@ -34,12 +35,9 @@ void draw() {
     return;
   }
 
-
   // This part of the draw loop gets called after the input selection screen, during normal execution of the program.
-
   
   // STEP 1.  Load an image, either from a movie file or from a live camera feed. Store the result in the inputImage variable
-  
   if ((cam != null) && (cam.available())) {
     cam.read();
     inputImage.copy(cam, 0,0,cam.width,cam.height, 0,0,inputImage.width,inputImage.height);
@@ -49,21 +47,18 @@ void draw() {
     inputImage.copy(mov, 0,0,mov.width,mov.height, 0,0,inputImage.width,inputImage.height);
   }
 
-
-  // Fill in your code to implement the rest of TextRain here..
-
-  // Tip: This code draws the current input image to the screen
+  // This code draws the current camera/movie image to the screen
   set(0, 0, inputImage);
 
-
+  // TODO: Fill in your code to implement the rest of TextRain here..
 
 }
 
 
 
 void keyPressed() {
-  
   if (!inputMethodSelected) {
+    
     // If we haven't yet selected the input method, then check for 0 to 9 keypresses to select from the input menu
     if ((key >= '0') && (key <= '9')) { 
       int input = key - '0';
@@ -74,7 +69,8 @@ void keyPressed() {
         inputMethodSelected = true;
       }
       else if ((input >= 1) && (input <= 9)) {
-        println("Camera " + input + " selected.");           
+        println("Camera " + input + " selected.");
+        
         // The camera can be initialized directly using an element from the array returned by list():
         cam = new Capture(this, cameras[input-1]);
         cam.start();
@@ -84,10 +80,8 @@ void keyPressed() {
     return;
   }
 
-
   // This part of the keyPressed routine gets called after the input selection screen during normal execution of the program
-  // Fill in your code to handle keypresses here..
-  
+  // TODO: Fill in your code to handle keypresses here..
   if (key == CODED) {
     if (keyCode == UP) {
       // up arrow key pressed
@@ -97,7 +91,6 @@ void keyPressed() {
     }
   }
   else if (key == ' ') {
-    // space bar pressed
+    // spacebar pressed
   } 
-  
 }
