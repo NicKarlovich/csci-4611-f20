@@ -287,16 +287,16 @@ public:
     int num_vertices() const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-	const Point3 vertexReadOnly(int vertex_id) const;
+	Point3 vertexReadOnly(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-	const Vector3 normalReadOnly(int vertex_id) const;
+	Vector3 normalReadOnly(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-	const Color colorReadOnly(int vertex_id) const;
+	Color colorReadOnly(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-	const Point2 tex_coordsReadOnly(int texture_unit, int vertex_id) const;
+	Point2 tex_coordsReadOnly(int texture_unit, int vertex_id) const;
     
     
     // Access to triangles
