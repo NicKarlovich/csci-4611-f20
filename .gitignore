@@ -1,0 +1,40 @@
+
+.DS_Store*
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# VIM
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+
+# These directories are meant for installing files generated inside the dev/ directory
+# They are in the git repo only so that students will checkout the intended directory
+# structure from the start, but we do not want to add anything inside them to git.
+# So, we ignore all files inside the directories except for a README.
+
+bin/*
+!bin/README.md
+
+include/*
+!include/README.md
+
+lib/*
+!lib/README.md
+
+share/*
+!share/README.md
+
+build
