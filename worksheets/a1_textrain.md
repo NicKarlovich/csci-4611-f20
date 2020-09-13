@@ -41,7 +41,7 @@ information from `inputImg` to help you.
 ```
 PImage inputImg = loadImage("test.jpg");
 
-int index1D = /* --- Fill this in --- */;
+int index1D = (inputImg.width * row) + column;
 ```
 
 
@@ -62,7 +62,10 @@ final int threshold = 128;
 // Returns: thresholded color (black or white)
 color thresholdPixel(color inputPixel) {
 
-  /* --- Fill this in --- */
-
+    if(brightness(inputPixel) >= 128) {
+      return color(255);
+    } else {
+      return color(0);
+    }
 }
 ```
