@@ -19,6 +19,9 @@ Session.vim
 .netrwhist
 *~
 
+dev/a1_textrain/application.windows32/
+dev/a1_textrain/application.windows64/
+dev/a1_textrain/test/
 
 # These directories are meant for installing files generated inside the dev/ directory
 # They are in the git repo only so that students will checkout the intended directory

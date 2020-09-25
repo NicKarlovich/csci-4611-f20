@@ -107,7 +107,7 @@ Sphere s = Sphere {
     radius: 5.0,
 };
 
-s.position = /* --- Fill in the next frame position computation here --- */
+s.position = s.position + velocity
 ```
 
 
@@ -121,9 +121,12 @@ write pseudocode to determine whether or not two spheres are intersecting
 
 ```
 bool sphereIntersection(Sphere s1, Sphere s2) {
-    /* --- Fill in your sphere intersection code here --- */
-    
-
+    Vector3 difference = s1.position - s2.position;
+    if(difference.length < s1.radius + s2.radius) {
+      return true;
+    } else {
+      return false;
+    }
 }
 ```
 
@@ -149,8 +152,8 @@ Sphere s3 = Sphere {
 };
 
 print(sphereIntersection(s1, s2));
-/* --- Fill in expected output (True or False) --- */
+False
 
 print(sphereIntersection(s1, s3));
-/* --- Fill in expected output (True or False) --- */
+True
 ```
