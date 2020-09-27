@@ -107,7 +107,7 @@ Sphere s = Sphere {
     radius: 5.0,
 };
 
-s.position = s.position + velocity
+s.position = s.position + velocity*(dt/1000) %convert m/s velocity into m/ms (meters per millisecond)
 ```
 
 
@@ -122,7 +122,7 @@ write pseudocode to determine whether or not two spheres are intersecting
 ```
 bool sphereIntersection(Sphere s1, Sphere s2) {
     Vector3 difference = s1.position - s2.position;
-    if(difference.length < s1.radius + s2.radius) {
+    if(difference.length <= s1.radius + s2.radius) {
       return true;
     } else {
       return false;
