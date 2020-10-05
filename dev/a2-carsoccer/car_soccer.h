@@ -23,6 +23,19 @@ public:
     /// This is called once each frame.  dt is "delta time", the time elapsed
     /// since the last call.
     void UpdateSimulation(double dt);
+
+    /// Checks if the current location of the ball is out of bounds and fixes it so it's
+    /// no longer out of bounds, with updated velocity.
+    void FixBallCollision(double dt);
+
+    /// Updates Car Location based on Keyboard Input.
+    void UpdateCarLocation(double dt);
+
+    // Checks to make sure car is kept in bounds
+    void FixCarCollision(double dt);
+
+    // Checks if ball is in goal 
+    bool InGoal();
     
     /// This is called when it is time to initialize graphics objects, like
     /// texture files.
@@ -40,6 +53,8 @@ public:
     
     // Feel free to add more functions here as needed.
 
+    //A function to reset ball position and car position, then give ball random velocity.
+    void ResetSimulation();
     
     
 private:
@@ -52,6 +67,7 @@ private:
     // for gravity.
     Car car_;
     Ball ball_;
+    const double gravity_ = 0.781; //gravity isn't exactly what it's expected to be to make it feel more like "rocket league"
     
 
     

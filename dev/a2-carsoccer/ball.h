@@ -27,12 +27,16 @@ public:
     float radius() { return radius_; }
     
     Point3 position() { return position_; }
+    Vector3 get_velocity() { return velocity_; };
     void set_position(const Point3 &p) { position_ = p; }
+    void set_velocity(const Vector3& v) { velocity_ = v; }
+
+
     
     
 private:
     // You will probably need to store some additional data here, e.g., velocity
-    
+    Vector3 velocity_;
     Point3 position_;
     float radius_;
 };
