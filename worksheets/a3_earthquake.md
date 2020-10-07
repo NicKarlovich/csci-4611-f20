@@ -22,7 +22,7 @@ numbers `{0.0, 1.5, 2.0, 1.3}`, the normalized value would be `v_normalized =
  *
  * Example usage:
  *    std::vector<float> quakes = {0.0, 1.5, 2.0, 1.3};
- *    float minMagnitude = *std::min_element(quakes.begin(), quakes.end()); 
+ *    float minMagnitude = std::min_element(quakes.begin(), quakes.end()); 
  */
 ```
 
@@ -44,8 +44,8 @@ and 1.0.
 std::vector<float> quakes = {0.0, 2.3, 5.1, 1.1, 7.6, 1.7};
 std::vector<float> normalizedQuakes = normalizeList(quakes);
 
-for (int i = 0; i < normalized.size(); i++) {
-    std::cout << normalized[i] << " ";
+for (int i = 0; i < normalizedQuakes.size(); i++) {
+    std::cout << normalizedQuakes[i] << " ";
 }
 std::cout << std::endl;
 ```
