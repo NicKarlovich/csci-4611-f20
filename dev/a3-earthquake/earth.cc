@@ -102,11 +102,11 @@ void Earth::DrawDebugInfo(const Matrix4 &model_matrix, const Matrix4 &view_matri
     // So it will be very slow if you have a large mesh, but it's quite useful when you are
     // debugging your mesh code, especially if you start with a small mesh.
     for (int t=0; t<earth_mesh_.num_triangles(); t++) {
-        std::vector<unsigned int> indices = earth_mesh_.triangle_vertices(t);
+        std::vector<unsigned int> indices = earth_mesh_.triangle_verticesReadOnly(t);
         std::vector<Point3> loop;
-        loop.push_back(earth_mesh_.vertex(indices[0]));
-        loop.push_back(earth_mesh_.vertex(indices[1]));
-        loop.push_back(earth_mesh_.vertex(indices[2]));
+        loop.push_back(earth_mesh_.vertexReadOnly(indices[0]));
+        loop.push_back(earth_mesh_.vertexReadOnly(indices[1]));
+        loop.push_back(earth_mesh_.vertexReadOnly(indices[2]));
         quick_shapes_.DrawLines(model_matrix, view_matrix, proj_matrix,
             Color(1,1,0), loop, QuickShapes::LinesType::LINE_LOOP, 0.005);
     }
