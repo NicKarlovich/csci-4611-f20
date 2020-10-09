@@ -32,6 +32,14 @@ normalizes the values in an arbitrary vector (list) and returns a new vector:
 ```
 std::vector<float> normalizeList(std::vector<float> quakeList) {
   /* --- Fill in your algorithm here --- */
+  float minValue = std::min_element(quakeList.begin(), quakeList.end());
+  float maxValue = std::max_element(quakeList.begin(), quakeList.end());
+  float newRange = maxValue - minValue;
+  
+  std::vector<float> normList;
+  for(int i = 0; i < quakeList.size(); i++) {
+    normList.pushBack(quakeList[i] / maxValue * newRange);
+  }
 }
 ```
 
@@ -52,6 +60,7 @@ std::cout << std::endl;
 
 ```
 /* --- Fill in the expected output here (e.g. 0.0, 0.5, 0.5, 1.0, 0.5, 0.12, 0.6) --- */
+<0, 0.302632, 0.671053, 0.144737, 1, 0.223684>
 ```
 
 ## Q2: Constructing a mesh
@@ -80,7 +89,7 @@ photograph or a drawing program) and label each vertex with an index number
 
 **Replace this image with your drawing:**
 
-![](./img/square.png)
+![](./img/nicksquare.png)
 
 Now, write out the square's vertex array, using the familiar `Point3` class
 (since it's in the *xy*-plane, you may assume z = 0 for all points):
@@ -88,6 +97,15 @@ Now, write out the square's vertex array, using the familiar `Point3` class
 ```
 std::vector<Point3> squareVertexArray = {
     /* --- Fill in your `Point3`s here */
+    std::vector<Point3> output;
+    Point3 v0 = Point3(0,0,0);
+    Point3 v1 = Point3(0,1,0);
+    Point3 v2 = Point3(1,1,0);
+    Point3 v3 = Point3(1,0,0);
+    output.push_back(v0);
+    output.push_back(v1);
+    output.push_back(v2);
+    output.push_back(v3);
 };
 ```
 
@@ -98,7 +116,14 @@ triangles!). Make sure your indices are defined in counter-clockwise order
 
 ```
 std::vector<int> squareIndexArray = {
+  std::vector<int> indicies;
     /* --- Fill in your first triangle indices --- */
+    indicies.push_back(1);
+    indicies.push_back(0);
+    indicies.push_back(3);
     /* --- Fill in your second triangle indices --- */
+    indicies.push_back(3);
+    indicies.push_back(2);
+    indicies.push_back(1);
 };
 ```

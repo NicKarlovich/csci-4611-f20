@@ -29,12 +29,12 @@ void Example::UpdateSimulation(double dt)  {
 void Example::InitOpenGL() {
     // Set up the camera in a good position to see the entire scene
     proj_matrix_ = Matrix4::Perspective(60, aspect_ratio(), 0.01, 100);
-    view_matrix_ = Matrix4::LookAt(Point3(2,1,4), Point3(2,1,0), Vector3(0,1,0));
+    view_matrix_ = Matrix4::LookAt(Point3(2,1,8), Point3(2,1,0), Vector3(0,1,0));
     glClearColor(1,1,1,1);
     
     
     // Load the texture we will use
-    texture_.InitFromFile(Platform::FindFile("monalisa.png", search_path_));
+    texture_.InitFromFile(Platform::FindFile("campbells.png", search_path_));
     
      
     // Create the mesh by setting the vertex and index arrays directly
@@ -43,6 +43,35 @@ void Example::InitOpenGL() {
     std::vector<Vector3> normals;
     std::vector<Point2> tex_coords;
     
+    for (float a = 0.0; a <= GfxMath::ToRadians(360.0); a += GfxMath::ToRadians(10.0)) {
+        //top vertex
+        float r = 0.3;
+        float x = r * cos(a);
+        float z = -r * sin(a);
+        float u = a / GfxMath::ToRadians(180.0);
+        vertices.push_back(Point3(x, 1, z));
+        normals.push_back(Vector3(0, 0, 1).ToUnit());
+        tex_coords.push_back(Point2(u, 0));
+
+        // bottom vertex
+        vertices.push_back(Point3(x, 0, z));
+        normals.push_back(Vector3(0, 0, 1).ToUnit());
+        tex_coords.push_back(Point2(u, 1));
+        if (x != 0.0) {
+            int last_vert_index = vertices.size() - 1;
+            //first triangle
+            indices.push_back(last_vert_index);
+            indices.push_back(last_vert_index - 1);
+            indices.push_back(last_vert_index - 2);
+            //second triangle
+            indices.push_back(last_vert_index - 1);
+            indices.push_back(last_vert_index - 3);
+            indices.push_back(last_vert_index - 2);
+
+        }
+    }
+    
+    /*
     // four vertices, each requires 3 floats: (x,y,z)
     vertices.push_back(Point3(0,0,0));
     vertices.push_back(Point3(1,0,0));
@@ -56,7 +85,10 @@ void Example::InitOpenGL() {
     normals.push_back(Vector3(0,1,1).ToUnit());
     
     // TODO: YOU ADD TEXTURE COORDINATES TO THE MESH
-
+    tex_coords.push_back(Point2(0, 1));
+    tex_coords.push_back(Point2(1, 1));
+    tex_coords.push_back(Point2(1, 0));
+    tex_coords.push_back(Point2(0, 0));
     
     
     // indices into the arrays above for the first triangle
@@ -68,14 +100,14 @@ void Example::InitOpenGL() {
     indices.push_back(0);
     indices.push_back(2);
     indices.push_back(3);
-    
+    */
     mesh_.SetVertices(vertices);
     mesh_.SetNormals(normals);
     mesh_.SetIndices(indices);
     
     // TODO: ALSO REMEMBER TO CALL mesh_.SetTexCoords(..) HERE ONCE YOU HAVE THEM DEFINED.
     // USE TEXTURE UNIT = 0 SINCE WE HAVE ONLY ONE TEXTURE APPLIED TO THE MESH.
-    
+    mesh_.SetTexCoords(0, tex_coords);
     mesh_.UpdateGPUMemory();
     
 }
