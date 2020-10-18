@@ -20,6 +20,10 @@ public:
     /// version of the earth.  The searchPath is for finding the texture file.
     void Init(const std::vector<std::string> &search_path);
 
+    /// Load texture and define geometry.  Initializes the mesh to the globe
+    /// version of the earth.  The searchPath is for finding the texture file.
+    void InitGlobe(const std::vector<std::string>& search_path);
+
     /// Draw the Earth to screen using the current version of the mesh set with
     /// the last call to UpdateMesh.
     void Draw(const Matrix4 &model_matrix, const Matrix4 &view_matrix, const Matrix4 &proj_matrix);
@@ -34,8 +38,8 @@ public:
     
     /// This can be a helpful debugging aid when creating your triangle mesh.  It
     /// draws the triangles and normals for the current earth mesh.
-    void DrawDebugInfo(const Matrix4 &model_matrix, const Matrix4 &view_matrix, const Matrix4 &proj_matrix);
-    
+    void DrawDebugInfo(const Matrix4 &model_matrix, const Matrix4 &view_matrix, const Matrix4 &proj_matrix);    
+
 protected:
     
     // Stores the earth texture map
@@ -51,7 +55,6 @@ protected:
     // Used only for the DrawDebugInfo() routine
     QuickShapes quick_shapes_;
 };
-
 
 #endif
   

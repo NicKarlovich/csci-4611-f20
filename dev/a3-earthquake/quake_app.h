@@ -46,8 +46,22 @@ public:
 
     /// The earth and earthquake spheres get drawn in this function.
     void DrawUsingOpenGL();
+
+    /// Draw an earth quake on a flat surface given magnitude and long/lat
+    void DrawQuake(float lon, float lat, float mag, int stage);
+
+    Color DecideColor(float mag);
+
+    bool GetGlobeMode();
     
 private:
+    //Additional:
+    // keep track of last added earthquake
+    int last_idx_;
+    std::vector<Earthquake> visibleQuakes;
+    std::vector<int> visibleQuakesRemainingTime;
+    bool globe_mode_;
+
     // controls playback
     double current_time_;
     double playback_scale_;

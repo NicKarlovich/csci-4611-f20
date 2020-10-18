@@ -35,6 +35,10 @@ double Earthquake::magnitude() {
     return ParseFloat(line.substr(66,4));
 }
 
+void Earthquake::printEarthquake() {
+    std::cout << "(long: " << longitude() << ", lat: " << latitude() << ", mag: " << magnitude() << std::endl;
+}
+
 double Earthquake::ParseFloat(std::string s) {
     std::stringstream ss(s);
     double f;

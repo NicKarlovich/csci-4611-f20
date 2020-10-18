@@ -3,17 +3,24 @@
 
 #include "quake_app.h"
 #include "config.h"
+#include "earth.h"
 
 #include <iostream>
 #include <sstream>
+#include <chrono>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 // Number of seconds in 1 year (approx.)
 const int PLAYBACK_WINDOW = 12 * 28 * 24 * 60 * 60;
+std::chrono::high_resolution_clock::time_point last_update;
+const int TIME_SCALE_FACTOR = 200;
 
 using namespace std;
 
-QuakeApp::QuakeApp() : GraphicsApp(1280,720, "Earthquake"),
-    playback_scale_(15000000.0), debug_mode_(false)
+QuakeApp::QuakeApp() : GraphicsApp(1280, 720, "Earthquake"),
+    playback_scale_(15000000.0 ), debug_mode_(false), globe_mode_(false)
 {
     // Define a search path for finding data files (images and earthquake db)
     search_path_.push_back(".");
@@ -23,7 +30,10 @@ QuakeApp::QuakeApp() : GraphicsApp(1280,720, "Earthquake"),
     
     quake_db_ = EarthquakeDatabase(Platform::FindFile("earthquakes.txt", search_path_));
     current_time_ = quake_db_.earthquake(quake_db_.min_index()).date().ToSeconds();
-
+    last_idx_ = quake_db_.min_index();
+    visibleQuakes.push_back(quake_db_.earthquake(last_idx_));
+    visibleQuakesRemainingTime.push_back(quake_db_.earthquake(last_idx_).magnitude()/2);
+    last_update = std::chrono::high_resolution_clock::now();
  }
 
 
@@ -78,6 +88,12 @@ void QuakeApp::OnLeftMouseDrag(const Point2 &pos, const Vector2 &delta) {
 
 void QuakeApp::OnGlobeBtnPressed() {
     // TODO: This is where you can switch between flat earth mode and globe mode
+    if (!globe_mode_) {
+        earth_.InitGlobe(search_path_);
+    } else {
+        earth_.Init(search_path_);
+    }
+    globe_mode_ = !globe_mode_;
 }
 
 void QuakeApp::OnDebugBtnPressed() {
@@ -125,13 +141,14 @@ void QuakeApp::InitOpenGL() {
     stars_tex_.InitFromFile(Platform::FindFile("iss006e40544.png", search_path_));
 }
 
-
 void QuakeApp::DrawUsingOpenGL() {
     quick_shapes_.DrawFullscreenTexture(Color(1,1,1), stars_tex_);
     
     // You can leave this as the identity matrix and we will have a fine view of
     // the earth.  If you want to add any rotation or other animation of the
     // earth, the model_matrix is where you would apply that.
+    //Matrix4 model_matrix;
+    
     Matrix4 model_matrix;
     
     // Draw the earth
@@ -139,12 +156,92 @@ void QuakeApp::DrawUsingOpenGL() {
     if (debug_mode_) {
         earth_.DrawDebugInfo(model_matrix, view_matrix_, proj_matrix_);
     }
-
+    
+    
     // TODO: You'll also need to draw the earthquakes.  It's up to you exactly
     // how you wish to do that.
 
+    std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> time_span = now - last_update;
+    double dt = time_span.count();
+    std::cout << dt << std::endl;
+    last_update = now;
+
+
+    int idx = quake_db_.FindMostRecentQuake(Date(current_time_));
+    if (idx == last_idx_) {
+        //do nothing.
+    } else {
+        // loop to ensure that if on any timestep it skipped multiple earthquakes, all of them will be included.
+        for (last_idx_ = last_idx_ + 1; last_idx_ < idx; last_idx_++) {
+            visibleQuakes.push_back(quake_db_.earthquake(last_idx_));
+            visibleQuakesRemainingTime.push_back(ceil(visibleQuakes.back().magnitude()) * TIME_SCALE_FACTOR);
+        }
+        visibleQuakes.push_back(quake_db_.earthquake(idx));
+        visibleQuakesRemainingTime.push_back(ceil(visibleQuakes.back().magnitude()) * TIME_SCALE_FACTOR);
+        last_idx_ = idx;
+    }
+
+    //std::cout << "----------------------------------" << idx << "," << last_idx_ << std::endl;
+    for (int i = 0; i < visibleQuakes.size(); i++) {
+        Earthquake temp = visibleQuakes[i];
+        int timeRemaining = visibleQuakesRemainingTime[i];
+        DrawQuake(temp.longitude(), temp.latitude(), temp.magnitude(), timeRemaining);
+        timeRemaining = timeRemaining - (int)dt;
+        if (timeRemaining <= 0) {            
+            //remove quakes that will no longer be visible.
+            visibleQuakes.erase(visibleQuakes.begin() + i);
+            visibleQuakesRemainingTime.erase(visibleQuakesRemainingTime.begin() + i);
+            i--;
+        }
+        else {
+            visibleQuakesRemainingTime[i] = timeRemaining;
+        }
+    }
+    //std::cout << "----------------------------------" << std::endl;
 }
 
+void QuakeApp::DrawQuake(float lon, float lat, float mag, int stage) {
+    float scaleMag = mag * mag * mag * mag / 50000; //using exponents to make bigger earthquakes more "different" than smaller ones.
+    float max_stage = mag * TIME_SCALE_FACTOR;
+    float increment = 1 / max_stage;
+    float subtractFactor = increment * stage * scaleMag;
+    Matrix4 quake = Matrix4::Scale(Vector3(scaleMag, scaleMag, scaleMag) -
+        Vector3(subtractFactor, subtractFactor, subtractFactor));
+    Point3 radCoords;
+    Matrix4 translate;
+    if (globe_mode_) {
+        radCoords = earth_.LatLongToSphere(lat, lon);
+        translate = Matrix4::Translation(Vector3(radCoords.x(), radCoords.y(), radCoords.z()));
+    } else {
+        radCoords = earth_.LatLongToPlane(lat, lon);
+        translate = Matrix4::Translation(Vector3(radCoords.x(), radCoords.y(), 0.01));
+    }
+    
 
+    Matrix4 combo = translate * quake;
+    Color magColor = DecideColor(mag);
+    quick_shapes_.DrawSphere(combo, view_matrix_, proj_matrix_, magColor);
+    //std::cout << lon << "," << lat << "," << mag << "," << stage << std::endl;
+}
 
+Color QuakeApp::DecideColor(float mag) {
+    Color danger = Color(.56, .078, .086); //dark red
+    Color high = Color(.886, .3, .11); // red
+    Color medium = Color(.85, .46, .207); //orange
+    Color low = Color(1, .86, .368); //yellow
 
+    if (mag > 8.0) {
+        return danger;
+    } else if (mag > 7.5) {
+        return high;
+    } else if (mag > 6.5) {
+        return medium;
+    } else {
+        return low;
+    }
+}
+
+bool QuakeApp::GetGlobeMode() {
+    return globe_mode_;
+}

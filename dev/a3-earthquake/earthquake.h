@@ -24,12 +24,15 @@ public:
 
     double magnitude();
 
+    void printEarthquake();
+
 private:
 
     double ParseFloat(std::string s);
     int ParseInt(std::string s);
 
     std::string line;
+    
 };
 
 #endif
