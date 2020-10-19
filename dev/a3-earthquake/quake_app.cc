@@ -164,7 +164,6 @@ void QuakeApp::DrawUsingOpenGL() {
     std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> time_span = now - last_update;
     double dt = time_span.count();
-    std::cout << dt << std::endl;
     last_update = now;
 
 
@@ -181,8 +180,7 @@ void QuakeApp::DrawUsingOpenGL() {
         visibleQuakesRemainingTime.push_back(ceil(visibleQuakes.back().magnitude()) * TIME_SCALE_FACTOR);
         last_idx_ = idx;
     }
-
-    //std::cout << "----------------------------------" << idx << "," << last_idx_ << std::endl;
+    
     for (int i = 0; i < visibleQuakes.size(); i++) {
         Earthquake temp = visibleQuakes[i];
         int timeRemaining = visibleQuakesRemainingTime[i];
@@ -198,7 +196,6 @@ void QuakeApp::DrawUsingOpenGL() {
             visibleQuakesRemainingTime[i] = timeRemaining;
         }
     }
-    //std::cout << "----------------------------------" << std::endl;
 }
 
 void QuakeApp::DrawQuake(float lon, float lat, float mag, int stage) {
@@ -222,7 +219,6 @@ void QuakeApp::DrawQuake(float lon, float lat, float mag, int stage) {
     Matrix4 combo = translate * quake;
     Color magColor = DecideColor(mag);
     quick_shapes_.DrawSphere(combo, view_matrix_, proj_matrix_, magColor);
-    //std::cout << lon << "," << lat << "," << mag << "," << stage << std::endl;
 }
 
 Color QuakeApp::DecideColor(float mag) {
