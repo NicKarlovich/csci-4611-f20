@@ -42,13 +42,13 @@ These changes may have not been updated on the MinGfx API documentation website,
 
 Notable Program Details:
 * The has two different initalization functions based on if it is in globe form or plane form.
-** The globe form has more vertices, normals, and tex_coords in order to account for needing to "close the loop" on the cylicndrical part of the globe.
-** This fact makes it so I did not and was not able to easily do the "transform" from plane to sphere form and back
+  * The globe form has more vertices, normals, and tex_coords in order to account for needing to "close the loop" on the cylicndrical part of the globe.
+  * This fact makes it so I did not and was not able to easily do the "transform" from plane to sphere form and back
 * My program also doesn't currently show all the earth quakes as described in the writeup.  I instead decided to expand on the idea by animating each earthquake as it appears on the map.
-** Each sphere is colored depending if it is in my defined "low, medium, high, or dangerous" classification.
-** Each classification has a different color that colors the earthquake which are "yellow, orange, red, dark red"
-*** This is described in the DecideColor() function in quake_app.cc
-** The size the earthquakes sphere grows to and how long it is on the screen is determined by it's magnitude.
-** The time the earthquake sphere is on the screen is done in real time, so how long the animation goes for is not affected by frame rate
+  * Each sphere is colored depending if it is in my defined "low, medium, high, or dangerous" classification.
+  * Each classification has a different color that colors the earthquake which are "yellow, orange, red, dark red"
+    * This is described in the DecideColor() function in quake_app.cc
+  * The size the earthquakes sphere grows to and how long it is on the screen is determined by it's magnitude.
+  * The time the earthquake sphere is on the screen is done in real time, so how long the animation goes for is not affected by frame rate
 * One other small detailed change I made to make my simulation work is I had to rotate all LatLong coordiantes by 90 degrees around the Y-axis because of how I orientated my texture originally.
 
