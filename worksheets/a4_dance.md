@@ -40,23 +40,23 @@ Include your pictures for each diagram here (there should be 5 total)
 
 ### House Model after translation
 
-![House Model after translation](file path to your image)
+![House Model after translation](./img/translate.png)
 
 ### House Model after scale
 
-![House Model after scale](file path to your image)
+![House Model after scale](./img/scale.png)
 
 ### House Model after rotation
 
-![House Model after rotation](file path to your image)
+![House Model after rotation](./img/rotate.png)
 
 ### House Model after final1
 
-![House Model after final1](file path to your image)
+![House Model after final1](./img/final1.png)
 
 ### House Model after final2
 
-![House Model after final2](file path to your image)
+![House Model after final2](./img/final2.png)
 
 --------------------------------------------------------------------------------
 
@@ -94,11 +94,11 @@ World-Space. Lastly, show the numeric representation of `pInWorldSpace`.
 Point3 pInDoorSpace = Point3(0.2, 0.4, 0.0);
 
 // Combined transformation from Door-Space -> World-Space
-Matrix4 doorSpaceToWorldSpace = /* --- Fill this in --- */
+Matrix4 doorSpaceToWorldSpace = houseToWorld * sidingToHouse * doorToSiding;
 
 // The point `p` in world space
-Point3 pInWorldSpace = /* --- Fill this in --- */
+Point3 pInWorldSpace = doorSpaceToWorldSpace * pInDoorSpace;
 
 std::cout << "p in World-Space: " << pInWorldSpace << std::endl;
-/* --- Fill in output for std::cout here --- */
+(-0.3, 0.7, 0.0)
 ```
