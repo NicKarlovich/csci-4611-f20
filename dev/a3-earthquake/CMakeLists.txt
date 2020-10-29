@@ -199,7 +199,3 @@ install(
     DESTINATION ${DATA_DIR_INSTALL}
 )
 
-install(
-    DIRECTORY shaders/
-    DESTINATION ${SHADERS_DIR_INSTALL}
-)
