@@ -47,14 +47,19 @@ DanceApp::DanceApp() : GraphicsApp(1280,768, "So You Think Ants Can Dance") {
     ballet_ant_.LoadSkeleton(Platform::FindFile("61.asf", searchPath_));
 
     // 2. Load the raw motion clips
+
+    // make the ballet dancer
     ballet_base_loop_.LoadFromAMC(Platform::FindFile("05_20.amc", searchPath_), *ballet_ant_.skeleton_ptr());
+    //ballet_base_loop_.TrimFront(150);
     ballet_base_loop_.TrimBack(600);
-    ballet_base_loop_.MakeLoop(50);
+    ballet_base_loop_.MakeLoop(150);
     ballet_base_loop_.CalcRelativeTranslations();
+
     
     ballet_special1_.LoadFromAMC(Platform::FindFile("05_02.amc", searchPath_), *ballet_ant_.skeleton_ptr());
     ballet_special1_.TrimFront(280);
     ballet_special1_.TrimBack(200);
+    //ballet_special1_.MakeLoop(50);
     ballet_special1_.CalcRelativeTranslations();
 
     // TODO: Add special motions 2-5 on your own.
@@ -63,13 +68,28 @@ DanceApp::DanceApp() : GraphicsApp(1280,768, "So You Think Ants Can Dance") {
     // 05_10.amc, 05_09.amc, 05_20.amc, and 05_06.amc -- you need to trim them
     // isolate the interesting portions of the motion.
     
-    
-    
-    
+    ballet_special2_.LoadFromAMC(Platform::FindFile("05_10.amc", searchPath_), *ballet_ant_.skeleton_ptr());
+    ballet_special2_.TrimFront(0);
+    ballet_special2_.TrimBack(120);
+    ballet_special2_.CalcRelativeTranslations();
+
+    ballet_special3_.LoadFromAMC(Platform::FindFile("05_09.amc", searchPath_), *ballet_ant_.skeleton_ptr());
+    ballet_special3_.TrimFront(390);
+    //ballet_special3_.TrimBack(0);
+    ballet_special3_.CalcRelativeTranslations();
+
+    ballet_special4_.LoadFromAMC(Platform::FindFile("05_20.amc", searchPath_), *ballet_ant_.skeleton_ptr());
+    ballet_special4_.TrimFront(400);
+    ballet_special4_.TrimBack(0);
+    ballet_special4_.CalcRelativeTranslations();
+
+    ballet_special5_.LoadFromAMC(Platform::FindFile("05_06.amc", searchPath_), *ballet_ant_.skeleton_ptr());
+    ballet_special5_.TrimFront(0);
+    ballet_special5_.TrimBack(120);
+    ballet_special5_.CalcRelativeTranslations();
     
     // 3. Start the base loop motion
     ballet_ant_.Play(ballet_base_loop_);
-    
     
     salsa_ants_transform_ = Matrix4::Translation(Vector3(1, 0, 0.5));
     ballet_ant_transform_ = Matrix4::Translation(Vector3(-1, ballet_base_loop_.pose(0).root_position()[1], 0));
@@ -121,22 +141,22 @@ void DanceApp::OnMotion1BtnPressed() {
 
 void DanceApp::OnMotion2BtnPressed() {
     // TODO: add a call similar to this:
-    // ballet_ant_.OverlayClip(ballet_special2_, 100);
+    ballet_ant_.OverlayClip(ballet_special2_, 100);
 }
 
 void DanceApp::OnMotion3BtnPressed() {
     // TODO: add a call similar to this:
-    // ballet_ant_.OverlayClip(ballet_special3_, 100);
+    ballet_ant_.OverlayClip(ballet_special3_, 100);
 }
 
 void DanceApp::OnMotion4BtnPressed() {
     // TODO: add a call similar to this:
-    // ballet_ant_.OverlayClip(ballet_special4_, 100);
+    ballet_ant_.OverlayClip(ballet_special4_, 100);
 }
 
 void DanceApp::OnMotion5BtnPressed() {
     // TODO: add a call similar to this:
-    // ballet_ant_.OverlayClip(ballet_special5_, 100);
+    ballet_ant_.OverlayClip(ballet_special5_, 100);
 }
 
 void DanceApp::UpdateSimulation(double dt)  {
