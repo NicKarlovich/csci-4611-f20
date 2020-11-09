@@ -19,10 +19,10 @@ ArtRenderApp::ArtRenderApp() : GraphicsApp(1024,768, "Art Render"),
     search_path_.push_back(".");
     search_path_.push_back("./data");
     search_path_.push_back("./shaders");
-    search_path_.push_back(DATA_DIR_INSTALL);
     search_path_.push_back(DATA_DIR_BUILD);
-    search_path_.push_back(SHADERS_DIR_INSTALL);
+	search_path_.push_back(DATA_DIR_INSTALL);
     search_path_.push_back(SHADERS_DIR_BUILD);
+	search_path_.push_back(SHADERS_DIR_INSTALL);
     
     // NOTE: YOU CAN COMMENT OUT SOME OF THESE IF THE APP IS LOADING TOO SLOWLY
     // THE MODEL_FILES ARRAY JUST NEEDS TO HOLD AT LEAST ONE MODEL.
