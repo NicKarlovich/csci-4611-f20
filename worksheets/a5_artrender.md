@@ -18,7 +18,7 @@ vectors point in the right direction to make sense for the equation as written
 
 Replace this image with your diagram:
 
-![](./img/vectors.png)
+![](./img/assignment5-q1.png)
 
 
 ## Q2: Silhouette Outline
@@ -43,8 +43,13 @@ that points from the vertex to the eye and `vec3 nl` is defined for the left
 normal and `vec3 nr` for the right normal, fill in the condition on the if
 statement:
 
-```
-if (/* --- Fill this in --- */)
+```c
+if ((e.dot(nr) > 0 && e.dot(nl) < 0) || (e.dot(nr) < 0 && e.dot(nl) > 0))
+/*
+ * if the dot product of e and the left and right vectors don't have the same
+ * sign that means that it crosses an "edge" and thus it should be silhouette'd
+ * and as such returns true when this occurs
+ */
 ```
 
 ### Q2.2
@@ -52,7 +57,7 @@ For the `nl` and `nr` that appear in your if statement above, should these two
 vectors be transformed to eye space using the `normal_matrix`?
 
 ```
-/* --- Write your answer here (yes / no) --- */
+No, because all that we care about is the sign, the magnitude of the dot product is unimportant.
 ```
 
 ### Q2.3
@@ -62,5 +67,5 @@ forms the silhouette outline. Should this normal vector be transformed to eye
 space using the `normal_matrix`?
 
 ```
-/* --- Write your answer here (yes / no) --- */
+Yes, as described above, the normal_matrix must be used to transform normals to the eye (a.k.a. camera) space.  The normal created here abides by that rule.
 ```
