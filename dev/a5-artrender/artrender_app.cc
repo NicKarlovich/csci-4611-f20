@@ -165,8 +165,10 @@ void ArtRenderApp::LoadShadersAndTextures() {
 
 	// To try out different shading styles, you can replace diffuse.png and specular.png with
 	// some of the other texture files in the data/ directory.
-	diffuse_ramp_.InitFromFile(Platform::FindFile("diffuse.png", search_path_));
-	specular_ramp_.InitFromFile(Platform::FindFile("specular.png", search_path_));
+	diffuse_ramp_.InitFromFile(Platform::FindFile("toonDiffuse.png", search_path_));
+	specular_ramp_.InitFromFile(Platform::FindFile("toonSpecular.png", search_path_));
+
+	surface_tex_.InitFromFile(Platform::FindFile("monalisa.png", search_path_));
 }
 
 
@@ -213,6 +215,7 @@ void ArtRenderApp::DrawUsingOpenGL() {
 		gouraud_shaderprog_.SetUniform("Ia", Ia);
 		gouraud_shaderprog_.SetUniform("Id", Id);
 		gouraud_shaderprog_.SetUniform("Is", Is);
+		gouraud_shaderprog_.BindTexture("surface_tex", surface_tex_);
 		meshes_[current_model_].Draw();
 		gouraud_shaderprog_.StopProgram();
 
