@@ -21,7 +21,7 @@ position.
 You can use the following images as inspiration for the shapes that you draw
 in your diagram (replace this image with your final diagram):
 
-![](./img/sky_camera_example.png)
+![](./img/ws6q1.png)
 
 
 ## Q2: Mouse-Sky Intersections (Part 2)
@@ -42,7 +42,8 @@ sky sphere! We're given the following information in this method:
 
 ```
 /* Hint: you may want to define an intermediate matrix here */
-Point3 eye = /* --- Fill in your answer here --- */
+Matrix4 invertedView = view_matrix.Inverse();
+Point3 eye = Point3(invertedView[0][3], invertedView[1][3], invertedView[2][3]);
 ```
 
 2. Construct the mouse pointer location in world space. We consider the mouse
@@ -54,14 +55,14 @@ Point3 eye = /* --- Fill in your answer here --- */
    construct the world-space representation of the mouse location:
 
 ```
-Point3 mouseIn3d = /* --- Fill in your answer here --- */
+Point3 mouseIn3d = ScreenToNearPlane(view_matrix, proj_matrix, normalized_screen_pt);
 ```
 
 3. Create the ray from the eye through the world-space mouse location on the
    near plane. Use MinGfx's builtin `Ray` class for this.
 
 ```
-Ray eyeThroughMouse = /* --- Fill in your answer here --- */
+Ray eyeThroughMouse = Ray(eye, mouseIn3d - eye)
 ```
 
 4. Use the
@@ -89,6 +90,9 @@ someFunction(&x);
 
 ```
 // Declare output parameters
+float t;
+Point3 point;
 
-bool intersects = eyeThroughMouse.IntersectSphere(/* --- Fill parameters in --- */)
+// not sure what sphere I'm supposed to be checking for here so I did the skybox. (well skysphere in this case)
+bool intersects = eyeThroughMouse.IntersectSphere(Point3(0, 0, 0), 1500, &t, &point)
 ```
